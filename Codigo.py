@@ -7,17 +7,17 @@ from _ast import Pass
 class Biblioteca(object):
     
     #Inicializador clase buscador
-    def __init__(self,Estudios=(None)):
+    def __init__(self,estudios=(None)):
         #self.estudios atributo de clase buscasdor (Lista)
-        self.estudios = Estudios
+        self.estudios = estudios
 
     #Agrega los objetos tipo estudio al atributo self.estudios 
     """por que aqui?"""
     '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
     Si quiere cambiele el nombre para que quede mas intuitivo '''
 
-    def add_busc (self,Estudio):
-        self.estudios.extend(Estudio)
+    def addLib (self,estudio):
+        self.estudios.extend(estudio)
         print('...Estudio agregado a base de datos ')
     
     #Funcion para buscar en todos los elementos contenidos en self.estudios    
@@ -43,27 +43,27 @@ class Biblioteca(object):
                 print('Ingrese un numero valido')
             if opcion == 1:
                 #Ejecuta el inicializador de la clase Estudio
-                Estudio.__init__(self)
+                self.addLib (estudio.__init__(self))
                 
             elif opcion == 2:
                 #Ejecuta el buscador de estudio y el estudio que elija el usuario es asignado a paciente
-                paciente = Estudio.busc_estudios(self)
+                paciente = estudio.busc_estudios(self)
                 #Ejecuta el inicializador de la clase Var_Fis
                 if paciente == None:
                     print ('Ingrese un estudio existente. (Debe crear un estudio antes de asignarle un diagnostico)')
                 else: 
                     variable_fis = Var_Fis.__init__(self)
-                    Estudio.add_var_fis(self, variable_fis)                 
+                    estudio.add_var_fis(self, variable_fis)                 
             
             elif opcion == 3:
                 #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
-                Estudio.busc_estudios(self)
+                estudio.busc_estudios(self)
                 
             elif opcion == 4:
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese el nombre del estudio  ')
                 #Ejecuta la funcion buscar estudios de la clase Estudio con key como argumento
-                busqueda = Estudio.busc_estudios(self,key)
+                busqueda = estudio.busc_estudios(self,key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
                 
@@ -104,7 +104,7 @@ class Biblioteca(object):
                     Var_Fis.graficar(self,Variable_Fis)     
             
             
-class Estudio(object):
+class estudio(object):
     #Var_Fi (variables fisiologicas)=lista
     def __init__(self,Name,Patologia,ID,Var_Fi=(None)):
         self.name = Name
@@ -112,7 +112,8 @@ class Estudio(object):
         self.id = ID
         self.var_fi = Var_Fi
         print('...Estudio creado')
-
+        
+        ##Esto no va aca!!
         '''Ejecuta la funcion add de biblioteca. y guarda ekl objeto tipo estudio en el atributo self.estudio de biblioteca'''
         Buscador.add_busc(self,Estudio)
         
