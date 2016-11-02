@@ -77,6 +77,7 @@ class Estudio(object):
         self.var_fi = varFis
         print('...Estudio creado')
 
+        ##ESTO NO VA AQUI, el contructor solo debe crear el objeto estudio, la clase estudio es la que guarda estudios en listas
         '''Ejecuta la funcion add de biblioteca. y guarda ekl objeto tipo estudio en el atributo self.estudio de biblioteca'''
         Buscador.add_busc(self,Estudio)
         
@@ -97,9 +98,9 @@ class varFisiologica(object):
         self.name = name
         self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticValues = 0
+        ## arreglar esta linea, se supone que es un diccionario
+        self.estadisticValues = {}
         print('...Variable creada')
-        
         #ejecuta la funcion add_var_fis de la clase Estudio
         Estudio.add_var_fis(self, varFisiologica)
     
