@@ -70,6 +70,7 @@ class Estudio(object):
         self.var_fi = Var_Fi
         print('...Estudio creado')
         #Ejecuta la funcion add_busc de la clase Buscador
+        ##Esto por que esta aqui?
         Buscador.add_busc(self, Estudio)
         
         
@@ -78,7 +79,7 @@ class Estudio(object):
         self.var_fi.extend(Var_Fis)
         print('... Variable agregada a estudio')    
     
-    # sobrecarga del metodo contains para usar en el buscador
+    # sobrecarga del metodo contains para crear buscador
     def __contains__ (self,key):
         pass
 
