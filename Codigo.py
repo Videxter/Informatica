@@ -106,40 +106,36 @@ class Biblioteca(object):
             
 class estudio(object):
     #Var_Fi (variables fisiologicas)=lista
-    def __init__(self,Name,Patologia,ID,Var_Fi=(None)):
-        self.name = Name
-        self.patologia = Patologia
-        self.id = ID
-        self.var_fi = Var_Fi
+    def __init__(self,name,iD,patologia,varFis=None):
+        self.name = name
+        self.id = iD
+        self.patology = patologia
+        self.var_fi = varFis
         print('...Estudio creado')
-        
-        ##Esto no va aca!!
-        '''Ejecuta la funcion add de biblioteca. y guarda ekl objeto tipo estudio en el atributo self.estudio de biblioteca'''
-        Buscador.add_busc(self,Estudio)
-        
-        
-    #Agrega las variables fisiologicas al atributo self.var_fi   
-    def add_var_fis (self,Var_Fis):
-        self.var_fi.extend(Var_Fis)
+    
+    #Agrega las variables fisiologicas al atributo self.var_fi
+    
+    def add_var_fis (self,addVar):
+        self.var_fi.extend(addVar)
         print('... Variable agregada a estudio')    
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        pass
+        if key in self.name + self.patology + self.id: return True
+        else: return False
 
-class Var_Fis(object):
-        
-    def __init__(self,Name_VF,Registro,Estadisticos=(None),Val_Est):
-        self.name_vf = Name_VF
-        self.reg = Registro
-        
+    def __str__(self):
+        return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
+
+class varFis(object):
+    def __init__(self,name,datos=None):
+        self.name = name
+        self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticos = Estadisticos
-        self.val_est = Val_Est
+        self.estadisticValues = 0
         print('...Variable creada')
-        
         #ejecuta la funcion add_var_fis de la clase Estudio
-        Estudio.add_var_fis(self, Var_Fis)
+        Estudio.add_var_fis(self, varFis)    
         
     #Funcion para calcular la media de las variables fisiologicas    
     def calc_media(var_fisica):
