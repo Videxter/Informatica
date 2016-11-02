@@ -16,13 +16,13 @@ class Biblioteca(object):
     '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
     Si quiere cambiele el nombre para que quede mas intuitivo '''
 
-    def add_busc (self,Estudio):
+    def add_library (self,Estudio):
         self.estudios.extend(Estudio)
         print('...Estudio agregado a base de datos ')
     
     #Funcion para buscar en todos los elementos contenidos en self.estudios    
     def buscador (self,key):
-        if key in self.estudios:return True
+        if key in self.estudios or key in sel.estudios.varFis:return True
         else: return False
      
     def menuInicial(self,option):
@@ -70,11 +70,11 @@ class Biblioteca(object):
             
 class Estudio(object):
     #Var_Fi (variables fisiologicas)=lista
-    def __init__(self,Name,Patologia,ID,Var_Fi=(None)):
-        self.name = Name
-        self.patologia = Patologia
-        self.id = ID
-        self.var_fi = Var_Fi
+    def __init__(self,name, patologia, iD,varFis=(None)):
+        self.name = name
+        self.patologia = patologia
+        self.id = iD
+        self.var_fi = varFis
         print('...Estudio creado')
 
         '''Ejecuta la funcion add de biblioteca. y guarda ekl objeto tipo estudio en el atributo self.estudio de biblioteca'''
@@ -82,18 +82,18 @@ class Estudio(object):
         
         
     #Agrega las variables fisiologicas al atributo self.var_fi   
-    def add_var_fis (self,Var_Fis):
-        self.var_fi.extend(Var_Fis)
+    def add_var_fis (self,addVar):
+        self.var_fi.extend(addVar)
         print('... Variable agregada a estudio')    
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        if key in self.name + self.patologia + self.id + self.var_fi: return True
+        if key in self.name + self.patologia + self.id: return True
         else: return False
 
-class Var_Fis(object):
-        
-   def __init__(self,name,datos=(None)):
+class varFisiologica(object):
+    
+    def __init__(self,name,datos=(None)):
         self.name = name
         self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
@@ -101,7 +101,7 @@ class Var_Fis(object):
         print('...Variable creada')
         
         #ejecuta la funcion add_var_fis de la clase Estudio
-        Estudio.add_var_fis(self, Var_Fis)
+        Estudio.add_var_fis(self, varFisiologica)
     
     def __contains__ (self,key):
         if key in self.name: return True
