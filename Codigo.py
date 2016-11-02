@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 #clase contenedora de los objetos tipo estudio y var_fis
 
 class Biblioteca(object):
-    
+    #Prueba
     #Inicializador clase buscador
     def __init__(self,Estudios=(None)):
         #self.estudios atributo de clase buscasdor (Lista)
