@@ -34,6 +34,7 @@ class Biblioteca(object):
         que debe ser un diccionaio o array de objetos tipo estudio""" 
         else: """salir"""
         
+        
     # valida entradas numericas de los input para menu
     def input_validate(self,tipo="int"):
         '''
