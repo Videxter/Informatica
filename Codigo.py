@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 #var_fis = variable fisiologica
 #clase contenedora de los objetos tipo estudio y var_fis
+
 class Biblioteca(object):
     
     #Inicializador clase buscador
@@ -19,6 +20,45 @@ class Biblioteca(object):
     def buscador (self,key):
         if key in self.estudios:return True
         else: return False
+     
+    def menuInicial(self,option):
+        print ("1. Agregar estudio")
+        print ("2. Consultar estudios")
+        print ("3. Salir")
+        option = self.input_validate(self)
+        if option == 1: """crear objeto tipo estudio"""
+        elif option == 2: """Si no hay estudios: "No hay estudios que consultar"
+        y vuelve a el menu inicial
+        si hay estudios, se procede a #buscar en un objeto tipo biblioteca 
+        (modificar metodo contains esta clase),
+        que debe ser un diccionaio o array de objetos tipo estudio""" 
+        else: """salir"""
+        
+    # valida entradas numericas de los input para menu
+    def input_validate(self,tipo="int"):
+        '''
+        consult_validate (int) -> int
+        
+        retorna un entero segun estas instrucciones:  
+        Si tipo == binary: x debe ser adquirir el valor de 1 o 2.
+        
+        >>> consult_validate (binary)
+        Por favor ingrese un número:
+        1
+        1
+        '''
+        while True:
+            try:
+                #Valida para enteros
+                option = int(input("Por favor ingrese un número: "))
+                #Valida para entradas 1 o 2
+                if tipo == "binary":
+                    if not (option == 1) or not (option == 2): option = int("error")
+                break
+            except ValueError:
+                print("Oops! No era válido. Intente nuevamente...")
+        return option
+    
             
             
 class Estudio(object):
@@ -40,11 +80,10 @@ class Estudio(object):
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        
-
+        pass
 
 class Var_Fis(object):
-    
+        
     def __init__(self,Name_VF,Registro,Estadisticos=(None),Val_Est):
         self.name_vf = Name_VF
         self.reg = Registro
@@ -102,17 +141,12 @@ class Var_Fis(object):
         plt.ylabel('Variable fisiologica')
         plt.plot(segundos_graficar,vector_var_fisica)
         plt.show()
-    
-        
 
 '''
 PENDIENTES:
 -Relacionar las ultimas funciones con las clases.
 -crear funcion para importar las variables fisiologicas.
--crear menu para la ejecucion de todo el algoritmo
--Definir buscadores
--
+-crear menu para la ejecucion de todo el algoritmo (en curso)
+-Definir buscadores (modificar funciones contain)
 -realizar diagrama de clases
-
 '''
-
