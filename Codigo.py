@@ -151,4 +151,5 @@ PENDIENTES:
 -crear menu para la ejecucion de todo el algoritmo (en curso)
 -Definir buscadores (modificar funciones contain)
 -realizar diagrama de clases
+
 '''
