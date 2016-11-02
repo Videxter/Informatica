@@ -66,14 +66,7 @@ class Biblioteca(object):
                 Variable_Fis = Var_Fis.busc_var_fis(estudio)
                 #Utiliza la funcion graficar de la clase Var_Fis. Toma como argumento la variable Variable_Fis 
                 Var_Fis.graficar(Variable_Fis)
-                
-                
-                
-            
-        
-        Pass
-        
-            
+
             
 class Estudio(object):
     #Var_Fi (variables fisiologicas)=lista
@@ -95,21 +88,24 @@ class Estudio(object):
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        pass
+        if key in self.name + self.patologia + self.id + self.var_fi: return True
+        else: return False
 
 class Var_Fis(object):
         
-    def __init__(self,Name_VF,Registro,Estadisticos=(None),Val_Est):
-        self.name_vf = Name_VF
-        self.reg = Registro
-        
+   def __init__(self,name,datos=(None)):
+        self.name = name
+        self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticos = Estadisticos
-        self.val_est = Val_Est
+        self.estadisticValues = 0
         print('...Variable creada')
         
         #ejecuta la funcion add_var_fis de la clase Estudio
         Estudio.add_var_fis(self, Var_Fis)
+    
+    def __contains__ (self,key):
+        if key in self.name: return True
+        else: return False
         
     #Funcion para calcular la media de las variables fisiologicas    
     def calc_media(var_fisica):
