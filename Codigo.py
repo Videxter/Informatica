@@ -2,21 +2,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 #var_fis = variable fisiologica
 #clase contenedora de los objetos tipo estudio y var_fis
-class Buscador(object):
+class Biblioteca(object):
     
     #Inicializador clase buscador
     def __init__(self,Estudios=(None)):
         #self.estudios atributo de clase buscasdor (Lista)
         self.estudios = Estudios
 
-    #Agrega los objetos tipo estudio al atributo self.estudios
+    #Agrega los objetos tipo estudio al atributo self.estudios 
+    """por que aqui?"""
     def add_busc (self,Estudio):
         self.estudios.extend(Estudio)
         print('...Estudio agregado a base de datos ')
     
     #Funcion para buscar en todos los elementos contenidos en self.estudios    
     def buscador (self,key):
-        
         if key in self.estudios:return True
         else: return False
             
@@ -37,6 +37,10 @@ class Estudio(object):
     def add_var_fis (self,Var_Fis):
         self.var_fi.extend(Var_Fis)
         print('... Variable agregada a estudio')    
+    
+    # sobrecarga del metodo contains para usar en el buscador
+    def __contains__ (self,key):
+        
 
 
 class Var_Fis(object):
@@ -53,61 +57,54 @@ class Var_Fis(object):
         #ejecuta la funcion add_var_fis de la clase Estudio
         Estudio.add_var_fis(self, Var_Fis)
         
-    
-    
-    
-    
-    
-    
-# Funcion para graficar. Falta decidir el lugar donde debe ir
+    #Funcion para calcular la media de las variables fisiologicas    
+    def calc_media(var_fisica):
+        vector_var_fisica = np.array(var_fisica, dtype=np.float)
+        media = np.average(vector_var_fisica)
+        return media
 
-def graficar(var_fisica,):
-    
-    #En este bloque obtengo las dos matrices para graficar 
-    #(vector_var_fisica   y   segundos_graficar
-    vector_var_fisica = np.array(var_fisica, dtype=np.float)
-    tamaño = vector_var_fisica.shape
-    segundos = tamaño[0]/100
-    segundos_graficar = np.zeros((1,tamaño[0]))
-    frecuencia = float(segundos/tamaño[0])
-    contador = 0
-    for i in range(0,tamaño[0]):
-        segundos_graficar[i] = contador
-        contador = contador + frecuencia
-        
-    #En este bloque se ejecutan los comandos para graficar
-    plt.title('Comportamiento de variable fisiologica en el tiempo')
-    plt.xlabel('Tiempo  [=]Segundos')
-    plt.ylabel('Variable fisiologica')
-    plt.plot(segundos_graficar,vector_var_fisica)
-    plt.show()
-    
-        
-#Funcion para calcular la media de las variables fisiologicas    
-def calc_media(var_fisica):
-    vector_var_fisica = np.array(var_fisica, dtype=np.float)
-    media = np.average(vector_var_fisica)
-    
-    return media
+    #Funcion para calcular la mediana de las variables fisiologicas    
+    def calc_mediana(var_fisica):
+        vector_var_fisica = np.array(var_fisica, dtype=np.float)
+        mediana = np.median(vector_var_fisica)
+        return mediana
 
-#Funcion para calcular la mediana de las variables fisiologicas    
-def calc_mediana(var_fisica):
-    vector_var_fisica = np.array(var_fisica, dtype=np.float)
-    mediana = np.median(vector_var_fisica)
+    #Funcion para calcular el valor maximo de las variables fisiologicas
+    def calc_val_max(var_fisica):
+        vector_var_fisica = np.array(var_fisica, dtype=np.float)
+        val_max = np.argmax(vector_var_fisica)
+        return val_max
+
+    #Funcion para calcular el valor minimo de las variables fisiologicas
+    def calc_val_min(var_fisica):
+        vector_var_fisica = np.array(var_fisica, dtype=np.float)
+        val_min = np.argmin(vector_var_fisica)
+        return val_min
+
+    # Funcion para graficar. Falta decidir el lugar donde debe ir
+    def graficar(var_fisica,):
+
+        #En este bloque obtengo las dos matrices para graficar 
+        #(vector_var_fisica   y   segundos_graficar
+        vector_var_fisica = np.array(var_fisica, dtype=np.float)
+        tamaño = vector_var_fisica.shape
+        segundos = tamaño[0]/100
+        segundos_graficar = np.zeros((1,tamaño[0]))
+        frecuencia = float(segundos/tamaño[0])
+        contador = 0
+        for i in range(0,tamaño[0]):
+            segundos_graficar[i] = contador
+            contador = contador + frecuencia
+
+        #En este bloque se ejecutan los comandos para graficar
+        plt.title('Comportamiento de variable fisiologica en el tiempo')
+        plt.xlabel('Tiempo  [=]Segundos')
+        plt.ylabel('Variable fisiologica')
+        plt.plot(segundos_graficar,vector_var_fisica)
+        plt.show()
     
-    return mediana
-#Funcion para calcular el valor maximo de las variables fisiologicas
-def calc_val_max(var_fisica):
-    vector_var_fisica = np.array(var_fisica, dtype=np.float)
-    val_max = np.argmax(vector_var_fisica)
-    
-    return val_max
-#Funcion para calcular el valor minimo de las variables fisiologicas
-def calc_val_min(var_fisica):
-    vector_var_fisica = np.array(var_fisica, dtype=np.float)
-    val_min = np.argmin(vector_var_fisica)
-    
-    return val_min
+        
+
 '''
 PENDIENTES:
 -Relacionar las ultimas funciones con las clases.
