@@ -4,7 +4,7 @@ from _ast import Pass
 #var_fis = variable fisiologica
 #clase contenedora de los objetos tipo estudio y var_fis
 
-class Biblioteca(object):
+class biblioteca(object):
     
     #Inicializador clase buscador
     def __init__(self,estudios=(None)):
@@ -135,7 +135,11 @@ class varFis(object):
         self.estadisticValues = 0
         print('...Variable creada')
         #ejecuta la funcion add_var_fis de la clase Estudio
-        Estudio.add_var_fis(self, varFis)    
+        Estudio.add_var_fis(self, varFis)   
+        
+    def __contains__ (self,key):
+        if key in self.name: return True
+        else: return False
         
     #Funcion para calcular la media de las variables fisiologicas    
     def calc_media(var_fisica):
