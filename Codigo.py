@@ -164,8 +164,9 @@ class varFis(object):
         datos = open(fileName)
         
     def __str__(self):
-        estadisticas = 
-        return 'Variable Fisiologica:%s\n| Media: %s |\n| Mediana: %s |\n| Valor Maximo: %s |\n| Valor Minimo: %s|\n'%(self.name)
+        estadistics = self.getEstadistics(self.datos)
+        return 'Variable Fisiologica:%s\n| Media: %s |\n| Mediana: %s |\n| Valor Maximo: %s |\n| Valor Minimo: %s|\n'
+        %(self.name,estadistics['Media'],estadistics['Mediana'],estadistics['Valor maximo'],estadistics['Valor minimo'])
     
     #Funcion para calcular la media de las variables fisiologicas    
     def getEstadistics(self,var_fisica):
