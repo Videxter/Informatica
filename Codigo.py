@@ -144,11 +144,11 @@ class estudio(object):
         return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
 
 class varFis(object):
-    def __init__(self,name,datos,estadistic_Values):
+    def __init__(self,name,datos):
         self.name = name
         self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticValues = estadistic_Values
+        self.estadisticValues = {}
         print('...Variable creada')
     
     def __contains__ (self,key):
@@ -160,14 +160,14 @@ class varFis(object):
         
     
     #Funcion para calcular la media de las variables fisiologicas    
-    def calc_estadisticas(self,var_fisica):
-        vector_var_fisica = np.array(var_fisica, dtype=np.float)
-        media = np.average(vector_var_fisica)
-        mediana = np.median(vector_var_fisica)
-        val_max = np.argmax(vector_var_fisica)
-        val_min = np.argmin(vector_var_fisica)
-        
-        return media, mediana, val_max, val_min
+    def getEstadistics(self,var_fisica):
+        vector_var_fisica = np.array(var_fisica, dtype=np.float) 
+        estadisticas = {}
+        estadisticas [Media]=        np.average(vector_var_fisica)
+        estadisticas [Mediana]=      np.median(vector_var_fisica)
+        estadisticas [Valor maximo]= np.argmax(vector_var_fisica)
+        estadisticas [Valor minimo]= np.argmin(vector_var_fisica)
+        return estadisticas
 
     # Funcion para graficar. Falta decidir el lugar donde debe ir
     def graficar(self,var_fisica,):
