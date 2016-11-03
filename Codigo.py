@@ -67,8 +67,9 @@ class biblioteca(object):
                         except IOError:
                             print ('No es posible abrir el archivo. Verifique el nombre ingresado. El algoritmo distingue entre mayusculas')
                             continue
-                    name_variable_fis = input('Ingrese el nombre de la variable fisiologica:  ') 
-                    object_var_fis = varFis.__init__(self,name_variable_fis,datos)
+                    name_variable_fis = input('Ingrese el nombre de la variable fisiologica:  ')
+                    estadisticas = varFis.calc_estadisticas(self, datos) 
+                    object_var_fis = varFis.__init__(self, name_variable_fis, datos,estadisticas )
                     estudio.add_var_fis(self, object_var_fis)                 
             
             elif opcion == 3:
@@ -119,7 +120,6 @@ class biblioteca(object):
                     #Utiliza la funcion graficar de la clase Var_Fis. Toma como argumento la variable Variable_Fis 
                     varFis.graficar(self,Variable_Fis)     
             
-            
 class estudio(object):
     #Var_Fi (variables fisiologicas)=lista
     def __init__(self,name,iD,patologia,varFis=None):
@@ -144,14 +144,13 @@ class estudio(object):
         return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
 
 class varFis(object):
-    def __init__(self,name,datos=None,estadistic_Values=(None)):
+    def __init__(self,name,datos,estadistic_Values):
         self.name = name
         self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
         self.estadisticValues = estadistic_Values
         print('...Variable creada')
- 
-        
+    
     def __contains__ (self,key):
         if key in self.name: return True
         else: return False
@@ -161,28 +160,14 @@ class varFis(object):
         
     
     #Funcion para calcular la media de las variables fisiologicas    
-    def calc_media(self,var_fisica):
+    def calc_estadisticas(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float)
         media = np.average(vector_var_fisica)
-        return media
-
-    #Funcion para calcular la mediana de las variables fisiologicas    
-    def calc_mediana(self,var_fisica):
-        vector_var_fisica = np.array(var_fisica, dtype=np.float)
         mediana = np.median(vector_var_fisica)
-        return mediana
-
-    #Funcion para calcular el valor maximo de las variables fisiologicas
-    def calc_val_max(self,var_fisica):
-        vector_var_fisica = np.array(var_fisica, dtype=np.float)
         val_max = np.argmax(vector_var_fisica)
-        return val_max
-
-    #Funcion para calcular el valor minimo de las variables fisiologicas
-    def calc_val_min(self,var_fisica):
-        vector_var_fisica = np.array(var_fisica, dtype=np.float)
         val_min = np.argmin(vector_var_fisica)
-        return val_min
+        
+        return media, mediana, val_max, val_min
 
     # Funcion para graficar. Falta decidir el lugar donde debe ir
     def graficar(self,var_fisica,):
