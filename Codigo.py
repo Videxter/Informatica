@@ -11,11 +11,6 @@ class biblioteca(object):
         #self.estudios atributo de clase buscasdor (Lista)
         self.estudios = estudios
 
-    #Agrega los objetos tipo estudio al atributo self.estudios 
-    """por que aqui?"""
-    '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
-    Si quiere cambiele el nombre para que quede mas intuitivo '''
-
     def addLib (self,estudio):
         self.estudios.extend(estudio)
         print('...Estudio agregado a base de datos ')
@@ -46,8 +41,12 @@ class biblioteca(object):
             print ("0. Salir")
             try:    
                 opcion = int(input('Ingrese el número de la opción que desea...  '))
+                
             except ValueError:
                 print('Ingrese un numero valido')
+                continue
+                
+                
             if opcion == 1:
                 #Ejecuta el inicializador de la clase Estudio
                 self.addLib (estudio.__init__(self))
