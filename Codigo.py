@@ -31,10 +31,14 @@ class biblioteca(object):
                 print (indice, ": ",resultados[indice])
         
         if resultados == {}:
-            print ("No existe ningun resultado asociado al a palabra clave")
-            
-            
-        return resultados    
+            print ("No existe ningun resultado asociado al a palabra clave")   
+        return resultados
+    
+     def showLibrary(self):
+        if not self.estudios == [];
+            for i in self.estudios:
+                #ejecuta el str de estudio
+                print (i)
                 
     def menuInicial(self,option):
         opcion = True
