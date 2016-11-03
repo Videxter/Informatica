@@ -34,9 +34,7 @@ class biblioteca(object):
             print ("No existe ningun resultado asociado al a palabra clave")
             
             
-        return resultados
-    
-    
+        return resultados    
                 
     def menuInicial(self,option):
         opcion = True
@@ -81,6 +79,7 @@ class biblioteca(object):
             elif opcion == 3:
                 #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
                 estudio.busc_estudios(self)
+            ''' Esta opcion debe imprimir todos los estudios...'''
                 
             elif opcion == 4:
                 #Recibe el valor que el usuario desea buscar
@@ -94,7 +93,8 @@ class biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese el nombre del factor pronostico o variable fisiologica  ')
                 #Ejecuta la funcion buscar un estadistico de un estudio de la clase Var_Fis con key como argumento
-                busqueda = varFis.busc_var_fis_estadisticos_unitario(self,key)
+                busqueda =
+                ''' en esta opcion se debe poder consutar los valores estadisticos de un factor pronostico'''
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                 
@@ -102,7 +102,8 @@ class biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese el nombre del factor pronostico o variable fisiologica  ')
                 #Ejecuta la funcion buscar todos los estadistico de un estudio de la clase Var_Fis
-                busqueda = varFis.busc_var_fis_estadisticos_todos(self,key)
+                busqueda = 
+                '''En esta opcion se debe poder buscar todos los valores estadisticos de todas las variables fisiologicas asociadas a un estudio '''
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
             
@@ -110,7 +111,7 @@ class biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese la palabra clave  ')               
                 #ejecuta el buscador por palabra d ela clase biblioteca
-                busqueda = biblioteca.buscador(self)
+                busqueda = biblioteca.buscador(self, key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
                 
@@ -118,13 +119,11 @@ class biblioteca(object):
                 #Ejecuta la funcion buscar estudios de la clase estudios. Asigna el valor a estudio
                 input('Ingrese el nombre del estudio donde se encuentra la variable que desea graficar. Luego elija el estudio y la variable fisiologica  ')
                 estudio = estudio.busc_estudios(self)
+                '''Esta opcion debe poder permitir buscar un factor pronostico para graficarlo'''
                 if estudio == None:
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
                 else:
-                    #Ejecuta la funcion buscar variable fisiologica asociada a un estudio. Asigna el valor a Variable_Fis
-                    Variable_Fis = varFis.busc_var_fis(self,estudio)
-                    #Utiliza la funcion graficar de la clase Var_Fis. Toma como argumento la variable Variable_Fis 
-                    varFis.graficar(self,Variable_Fis)     
+  
             
 class estudio(object):
     #Var_Fi (variables fisiologicas)=lista
