@@ -126,29 +126,32 @@ class biblioteca(object):
                 '''Esta opcion debe poder permitir buscar un factor pronostico para graficarlo'''
                 if estudio == None:
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
-                else:
-  
-            
+                else:pass
+                        
+                    
 class estudio(object):
     #Var_Fi (variables fisiologicas)=lista
-    def __init__(self,name,iD,patologia,varFis=None):
+    def __init__(self,name,iD,patologia,varFi=[]):
         self.name = name
         self.id = iD
         self.patology = patologia
-        self.var_fi = varFis
+        self.var_fi = []
         print('...Estudio creado')
     
     #Agrega las variables fisiologicas al atributo self.var_fi
-    
-    def add_var_fis (self,addVar):
-        self.var_fi.extend(addVar)
-        print('... Variable agregada a estudio')    
+    ##### PROBAR (DEBERIA VAR SER UN DICCIONARIO?)
+    def addVarFis (self,name,datos):
+        var = varFis (name,datos)
+        self.var_fi.append(var)
+        print('... Variable agregada a estudio')
+        return self.var_fi
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
         if key in self.name + self.patology + self.id: return True
         else: return False
-
+    
+    # sobrecarga de str #### 
     def __str__(self):
         return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
 
@@ -159,19 +162,23 @@ class varFis(object):
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
         self.estadisticValues = {}
         print('...Variable creada')
-    
+    ##### funciona
     def __contains__ (self,key):
         if key in self.name: return True
         else: return False
-        
+    
+    ##### falta probar y poner el return
     def importar (self,fileName):
         datos = open(fileName)
-        
+    
+    #### probar
     def __str__(self):
         estadistics = self.getEstadistics(self.datos)
         return 'Variable Fisiologica:%s\n| Media: %s |\n| Mediana: %s |\n| Valor Maximo: %s |\n| Valor Minimo: %s|\n'
         %(self.name,estadistics['Media'],estadistics['Mediana'],estadistics['Valor maximo'],estadistics['Valor minimo'])
     
+    
+    #### PROBAR
     #Funcion para calcular la media de las variables fisiologicas    
     def getEstadistics(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float) 
@@ -207,11 +214,15 @@ class varFis(object):
 '''
 PENDIENTES:
 -Relacionar las ultimas funciones con las clases.( creo que ya)
--crear menu para la ejecucion de todo el algoritmo (en curso)
+-probar menu para la ejecucion de todo el algoritmo (en curso)
 -probar buscador (en curso)
 -realizar diagrama de clases (en curso)
+-probar clase varFis 
 
 Hechos:
 - constructor, contain, str de estudios funciona
 - crear funcion para importar las variables fisiologicas.
+- menu creado
+- buscador creado
+- metodos de funciones creadas
 '''
