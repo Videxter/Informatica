@@ -69,16 +69,14 @@ class biblioteca(object):
                 else: 
                     while True:                        
                         try:
-                            fileName = input('Ingrese el nombre del archivo seguido de .txt  ')
-                            datos = varFis.importar(self, fileName)
+                            file = open(input('Ingrese el nombre del archivo seguido de .txt  '))
                             break
                         except IOError:
                             print ('No es posible abrir el archivo.\nVerifique el nombre ingresado.\nEl algoritmo distingue entre mayusculas')
                             continue
-                    name_variable_fis = input('Ingrese el nombre de la variable fisiologica: ')
-                    estadisticas = varFis.getEstadistics (self, datos) 
-                    object_var_fis = varFis.__init__(self, name_variable_fis, datos,estadisticas )
-                    estudio.add_var_fis(self, object_var_fis)                 
+                    variableFis = input('Ingrese el nombre de la variable fisiologica: ') 
+                    objectVarFis = varFis(variableFis, file)
+                    estudio.(self, objectVarFis)                 
             
             elif opcion == 3:
                 #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
