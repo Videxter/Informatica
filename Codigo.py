@@ -30,7 +30,10 @@ class biblioteca(object):
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
             else: print ("No existe ningun dato asociado a la palabra que busca")
+                resultados = None
         return resultados
+    
+    
                 
     def menuInicial(self,option):
         opcion = True
@@ -61,13 +64,13 @@ class biblioteca(object):
                 else: 
                     while True:                        
                         try:
-                            name_archive = input('Ingrese el nombre del archivo seguido de .txt  ')
-                            datos = varFis.importar(self, name_archive)
+                            fileName = input('Ingrese el nombre del archivo seguido de .txt  ')
+                            datos = varFis.importar(self, fileName)
                             break
                         except IOError:
-                            print ('No es posible abrir el archivo. Verifique el nombre ingresado. El algoritmo distingue entre mayusculas')
+                            print ('No es posible abrir el archivo.\nVerifique el nombre ingresado.\nEl algoritmo distingue entre mayusculas')
                             continue
-                    name_variable_fis = input('Ingrese el nombre de la variable fisiologica:  ')
+                    name_variable_fis = input('Ingrese el nombre de la variable fisiologica: ')
                     estadisticas = varFis.getEstadistics (self, datos) 
                     object_var_fis = varFis.__init__(self, name_variable_fis, datos,estadisticas )
                     estudio.add_var_fis(self, object_var_fis)                 
@@ -155,9 +158,12 @@ class varFis(object):
         if key in self.name: return True
         else: return False
         
-    def importar (self,name_var_fis):
-        datos = open(name_var_fis)
+    def importar (self,fileName):
+        datos = open(fileName)
         
+    def __str__(self):
+        estadisticas = 
+        return 'Variable Fisiologica:%s\n| Media: %s |\n| Mediana: %s |\n| Valor Maximo: %s |\n| Valor Minimo: %s|\n'%(self.name)
     
     #Funcion para calcular la media de las variables fisiologicas    
     def getEstadistics(self,var_fisica):
@@ -193,9 +199,12 @@ class varFis(object):
 
 '''
 PENDIENTES:
--Relacionar las ultimas funciones con las clases.
--crear funcion para importar las variables fisiologicas.
+-Relacionar las ultimas funciones con las clases.( creo que ya)
 -crear menu para la ejecucion de todo el algoritmo (en curso)
--Definir buscadores (modificar funciones contain)
--realizar diagrama de clases
+-probar buscador (en curso)
+-realizar diagrama de clases (en curso)
+
+Hechos:
+- constructor, contain, str de estudios funciona
+- crear funcion para importar las variables fisiologicas.
 '''
