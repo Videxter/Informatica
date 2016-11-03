@@ -68,7 +68,7 @@ class biblioteca(object):
                             print ('No es posible abrir el archivo. Verifique el nombre ingresado. El algoritmo distingue entre mayusculas')
                             continue
                     name_variable_fis = input('Ingrese el nombre de la variable fisiologica:  ')
-                    estadisticas = varFis.calc_estadisticas(self, datos) 
+                    estadisticas = varFis.getEstadistics (self, datos) 
                     object_var_fis = varFis.__init__(self, name_variable_fis, datos,estadisticas )
                     estudio.add_var_fis(self, object_var_fis)                 
             
@@ -163,10 +163,10 @@ class varFis(object):
     def getEstadistics(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float) 
         estadisticas = {}
-        estadisticas ["Media"]=        np.average(vector_var_fisica)
-        estadisticas ["Mediana"]=      np.median(vector_var_fisica)
-        estadisticas ["Valor maximo"]= np.argmax(vector_var_fisica)
-        estadisticas ["Valor minimo"]= np.argmin(vector_var_fisica)
+        estadisticas ['Media']=        np.average(vector_var_fisica)
+        estadisticas ['Mediana']=      np.median(vector_var_fisica)
+        estadisticas ['Valor maximo']= np.argmax(vector_var_fisica)
+        estadisticas ['Valor minimo']= np.argmin(vector_var_fisica)
         return estadisticas
 
     # Funcion para graficar. Falta decidir el lugar donde debe ir
