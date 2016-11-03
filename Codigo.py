@@ -30,6 +30,7 @@ class biblioteca(object):
                 resultados[indices] = objeto
                 print (indice, ": " resultados[indice])
             else: Print ("No existe ningun dato asociado a la palabra que busca")
+        return resultados
                 
     def menuInicial(self,option):
         opcion = True
