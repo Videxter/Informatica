@@ -34,8 +34,8 @@ class biblioteca(object):
             print ("No existe ningun resultado asociado al a palabra clave")   
         return resultados
     
-     def showLibrary(self):
-        if not self.estudios == [];
+    def showLibrary(self):
+        if not self.estudios == []:
             for i in self.estudios:
                 #ejecuta el str de estudio
                 print (i)
@@ -58,7 +58,10 @@ class biblioteca(object):
                 print('Ingrese un numero valido')
             if opcion == 1:
                 #Ejecuta el inicializador de la clase Estudio
-                self.addLib (estudio.__init__(self))
+                name = str(input('Ingrse nombre  ')) 
+                id = str(input('Ingrse Identificación  '))
+                pat = str(input('Ingrse patlogia  '))
+                self.addLib (estudio(name, id, pat))
                 
             elif opcion == 2:
                 #Ejecuta el buscador de estudio y el estudio que elija el usuario es asignado a paciente
@@ -66,17 +69,18 @@ class biblioteca(object):
                 #Ejecuta el inicializador de la clase Var_Fis
                 if paciente == None:
                     print ('Ingrese un estudio existente. (Debe crear un estudio antes de asignarle un diagnostico)')
+                    continue
                 else: 
                     while True:                        
                         try:
-                            file = open(input('Ingrese el nombre del archivo seguido de .txt  '))
+                            file = open(str(input('Ingrese el nombre del archivo seguido de .txt  ')))
                             break
                         except IOError:
                             print ('No es posible abrir el archivo.\nVerifique el nombre ingresado.\nEl algoritmo distingue entre mayusculas')
                             continue
-                    variableFis = input('Ingrese el nombre de la variable fisiologica: ') 
+                    variableFis = str(input('Ingrese el nombre de la variable fisiologica: ')) 
                     objectVarFis = varFis(variableFis, file)
-                    estudio.(self, objectVarFis)                 
+                    estudio.addVarFis(objectVarFis)                 
             
             elif opcion == 3:
                 #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
@@ -85,45 +89,50 @@ class biblioteca(object):
                 
             elif opcion == 4:
                 #Recibe el valor que el usuario desea buscar
-                key = input('Ingrese el nombre del estudio  ')
+                key = str(input('Ingrese el nombre del estudio  '))
                 #Ejecuta la funcion buscar estudios de la clase Estudio con key como argumento
                 busqueda = estudio.busc_estudios(self,key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
+                    continue
                 
             elif opcion == 5:
                 #Recibe el valor que el usuario desea buscar
-                key = input('Ingrese el nombre del factor pronostico o variable fisiologica  ')
+                key = str(input('Ingrese el nombre del factor pronostico o variable fisiologica  '))
                 #Ejecuta la funcion buscar un estadistico de un estudio de la clase Var_Fis con key como argumento
                 busqueda =
                 ''' en esta opcion se debe poder consutar los valores estadisticos de un factor pronostico'''
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
+                    continue
                 
             elif opcion == 6:
                 #Recibe el valor que el usuario desea buscar
-                key = input('Ingrese el nombre del factor pronostico o variable fisiologica  ')
+                key = str(input('Ingrese el nombre del factor pronostico o variable fisiologica  '))
                 #Ejecuta la funcion buscar todos los estadistico de un estudio de la clase Var_Fis
                 busqueda = 
                 '''En esta opcion se debe poder buscar todos los valores estadisticos de todas las variables fisiologicas asociadas a un estudio '''
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
+                    continue
             
             elif opcion == 7:
                 #Recibe el valor que el usuario desea buscar
-                key = input('Ingrese la palabra clave  ')               
+                key = str(input('Ingrese la palabra clave  '))               
                 #ejecuta el buscador por palabra d ela clase biblioteca
                 busqueda = biblioteca.buscador(self, key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
+                    continue
                 
             elif opcion == 8:
                 #Ejecuta la funcion buscar estudios de la clase estudios. Asigna el valor a estudio
-                input('Ingrese el nombre del estudio donde se encuentra la variable que desea graficar. Luego elija el estudio y la variable fisiologica  ')
+                key = str(input('Ingrese el nombre del estudio donde se encuentra la variable que desea graficar. Luego elija el estudio y la variable fisiologica  '))
                 estudio = estudio.busc_estudios(self)
                 '''Esta opcion debe poder permitir buscar un factor pronostico para graficarlo'''
                 if estudio == None:
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
+                    continue
                 else:pass
                         
                     
@@ -164,9 +173,6 @@ class varFis(object):
     def __contains__ (self,key):
         if key in self.name: return True
         else: return False
-        
-    def importar (self,fileName):
-        datos = open(fileName)
         
     def __str__(self):
         self.getEstadistics()
