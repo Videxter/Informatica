@@ -29,8 +29,11 @@ class biblioteca(object):
                 indice += 1
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
-            else: print ("No existe ningun dato asociado a la palabra que busca")
-                resultados = None
+        
+        if resultados == {}:
+            print ("No existe ningun resultado asociado al a palabra clave")
+            
+            
         return resultados
     
     
