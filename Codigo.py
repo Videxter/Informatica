@@ -38,7 +38,7 @@ class biblioteca(object):
         elif resultados == {}:
             opind = None
             print ("No existe ningun resultado asociado a la palabra clave")
-            resultados = None   
+            resultados[opind] = None   
         # retorna diccionario con los resultados
         return resultados[opind]
     
@@ -63,7 +63,7 @@ class biblioteca(object):
             print ("0. Salir")
             #Validacion de ingreso de opcion 
             try:    
-                opcion = int(input('Ingrese el número de la opción que desea...  '))
+                opcion = int(input('Ingrese el número de la opción que desea...\n  '))
             except ValueError:
                 print('Ingrese un numero valido')
                 continue
@@ -71,7 +71,7 @@ class biblioteca(object):
                 #Pide los datos necesarios para crear un objeto estudios
                 name = str(input('Ingrese nombre  ')) 
                 ide = str(input('Ingrese Identificación  '))
-                pat = str(input('Ingrese patlogia  '))
+                pat = str(input('Ingrese patologia  '))
                 #Ejecuta el metodo inicializador de estudios
                 self.addLib (estudio(name, ide, pat))
                 
@@ -118,6 +118,7 @@ class biblioteca(object):
                 key = str(input('Ingrese la palabra clave del estudio'))
                 #Ejecuta el buscador de la clase biblioteca
                 study = self.buscador(key)
+    
                 #Valida la existencia de objetos tipo estudios
                 if study == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
@@ -182,7 +183,7 @@ class estudio(object):
     # Retorna una lista con nombres de las variables fisiologicas
     def namesVarfi(self):
         listvf = []
-        # agrega a lista auxiliar los nombres del del atributo .name de objetos varFis
+        # agrstr(input('Ingrese nombre de la variable'))ega a lista auxiliar los nombres del del atributo .name de objetos varFis
         for i in self.varfi:
             listvf.append(i.name)
         return listvf
@@ -192,11 +193,17 @@ class estudio(object):
         # Imprime nombres de la variables fisiologicas 
         for varfis in lista:
             print (varfis)
-        # Almacena el indice de la variable seleccionado    
-        indice = lista.index(str(input('Ingrese nombre de la variable')))
-        # Imprime la variable seleccionada
-        print (self.varfi[indice])
-        return self.varfi[indice]
+            
+        inlet = str(input('Ingrese nombre de la variable'))
+        if inlet in lista:
+            # Almacena el indice de la variable seleccionado    
+            indice = lista.index(inlet)
+            # Imprime la variable seleccionada
+            print (self.varfi[indice])
+            return self.varfi[indice]
+
+        else:
+            print ('No existe esa variable fisiologica. Verifique que el estudio tenga variables fisiologicas asociadas')
     
     
     # imprime todas la variales Fisiologicas con el metodo str de los objetos varFis        
