@@ -163,10 +163,10 @@ class varFis(object):
     def getEstadistics(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float) 
         estadisticas = {}
-        estadisticas [Media]=        np.average(vector_var_fisica)
-        estadisticas [Mediana]=      np.median(vector_var_fisica)
-        estadisticas [Valor maximo]= np.argmax(vector_var_fisica)
-        estadisticas [Valor minimo]= np.argmin(vector_var_fisica)
+        estadisticas ["Media"]=        np.average(vector_var_fisica)
+        estadisticas ["Mediana"]=      np.median(vector_var_fisica)
+        estadisticas ["Valor maximo"]= np.argmax(vector_var_fisica)
+        estadisticas ["Valor minimo"]= np.argmin(vector_var_fisica)
         return estadisticas
 
     # Funcion para graficar. Falta decidir el lugar donde debe ir
