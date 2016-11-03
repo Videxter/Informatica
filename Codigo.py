@@ -11,6 +11,11 @@ class biblioteca(object):
         #self.estudios atributo de clase buscasdor (Lista)
         self.estudios = estudios
 
+    #Agrega los objetos tipo estudio al atributo self.estudios 
+    """por que aqui?"""
+    '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
+    Si quiere cambiele el nombre para que quede mas intuitivo '''
+
     def addLib (self,estudio):
         self.estudios.extend(estudio)
         print('...Estudio agregado a base de datos ')
@@ -41,12 +46,8 @@ class biblioteca(object):
             print ("0. Salir")
             try:    
                 opcion = int(input('Ingrese el número de la opción que desea...  '))
-                
             except ValueError:
                 print('Ingrese un numero valido')
-                continue
-                
-                
             if opcion == 1:
                 #Ejecuta el inicializador de la clase Estudio
                 self.addLib (estudio.__init__(self))
@@ -58,8 +59,17 @@ class biblioteca(object):
                 if paciente == None:
                     print ('Ingrese un estudio existente. (Debe crear un estudio antes de asignarle un diagnostico)')
                 else: 
-                    variable_fis = varFis.__init__(self)
-                    estudio.add_var_fis(self, variable_fis)                 
+                    while True:                        
+                        try:
+                            name_archive = input('Ingrese el nombre del archivo seguido de .txt  ')
+                            datos = varFis.importar(self, name_archive)
+                            break
+                        except IOError:
+                            print ('No es posible abrir el archivo. Verifique el nombre ingresado. El algoritmo distingue entre mayusculas')
+                            continue
+                    name_variable_fis = input('Ingrese el nombre de la variable fisiologica:  ') 
+                    object_var_fis = varFis.__init__(self,name_variable_fis,datos)
+                    estudio.add_var_fis(self, object_var_fis)                 
             
             elif opcion == 3:
                 #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
@@ -134,45 +144,48 @@ class estudio(object):
         return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
 
 class varFis(object):
-    def __init__(self,name,datos=None):
+    def __init__(self,name,datos=None,estadistic_Values=(None)):
         self.name = name
         self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticValues = 0
+        self.estadisticValues = estadistic_Values
         print('...Variable creada')
-        #ejecuta la funcion add_var_fis de la clase Estudio
-        Estudio.add_var_fis(self, varFis)   
+ 
         
     def __contains__ (self,key):
         if key in self.name: return True
         else: return False
         
+    def importar (self,name_var_fis):
+        datos = open(name_var_fis)
+        
+    
     #Funcion para calcular la media de las variables fisiologicas    
-    def calc_media(var_fisica):
+    def calc_media(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float)
         media = np.average(vector_var_fisica)
         return media
 
     #Funcion para calcular la mediana de las variables fisiologicas    
-    def calc_mediana(var_fisica):
+    def calc_mediana(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float)
         mediana = np.median(vector_var_fisica)
         return mediana
 
     #Funcion para calcular el valor maximo de las variables fisiologicas
-    def calc_val_max(var_fisica):
+    def calc_val_max(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float)
         val_max = np.argmax(vector_var_fisica)
         return val_max
 
     #Funcion para calcular el valor minimo de las variables fisiologicas
-    def calc_val_min(var_fisica):
+    def calc_val_min(self,var_fisica):
         vector_var_fisica = np.array(var_fisica, dtype=np.float)
         val_min = np.argmin(vector_var_fisica)
         return val_min
 
     # Funcion para graficar. Falta decidir el lugar donde debe ir
-    def graficar(var_fisica,):
+    def graficar(self,var_fisica,):
 
         #En este bloque obtengo las dos matrices para graficar 
         #(vector_var_fisica   y   segundos_graficar
