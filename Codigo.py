@@ -4,27 +4,34 @@ from _ast import Pass
 #var_fis = variable fisiologica
 #clase contenedora de los objetos tipo estudio y var_fis
 
-class Biblioteca(object):
+class biblioteca(object):
     
     #Inicializador clase buscador
-    def __init__(self,Estudios=(None)):
+    def __init__(self,estudios=[]):
         #self.estudios atributo de clase buscasdor (Lista)
-        self.estudios = Estudios
+        self.estudios = estudios
 
     #Agrega los objetos tipo estudio al atributo self.estudios 
     """por que aqui?"""
     '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
     Si quiere cambiele el nombre para que quede mas intuitivo '''
 
-    def add_busc (self,Estudio):
-        self.estudios.extend(Estudio)
+    def addLib (self,estudio):
+        self.estudios.extend(estudio)
         print('...Estudio agregado a base de datos ')
     
     #Funcion para buscar en todos los elementos contenidos en self.estudios    
     def buscador (self,key):
-        if key in self.estudios:return True
-        else: return False
-     
+        indices = 0
+        resultados = {}
+        for objeto in self.estudios:
+            if key in self.estudios:
+                indices += 1
+                resultados[indices] = objeto
+                print (indice, ": " resultados[indice])
+            else: print ("No existe ningun dato asociado a la palabra que busca")
+        return resultados
+                
     def menuInicial(self,option):
         opcion = True
         while opcion!=0:
@@ -43,27 +50,27 @@ class Biblioteca(object):
                 print('Ingrese un numero valido')
             if opcion == 1:
                 #Ejecuta el inicializador de la clase Estudio
-                Estudio.__init__(self)
+                self.addLib (estudio.__init__(self))
                 
             elif opcion == 2:
                 #Ejecuta el buscador de estudio y el estudio que elija el usuario es asignado a paciente
-                paciente = Estudio.busc_estudios(self)
+                paciente = estudio.busc_estudios(self)
                 #Ejecuta el inicializador de la clase Var_Fis
                 if paciente == None:
                     print ('Ingrese un estudio existente. (Debe crear un estudio antes de asignarle un diagnostico)')
                 else: 
-                    variable_fis = Var_Fis.__init__(self)
-                    Estudio.add_var_fis(self, variable_fis)                 
+                    variable_fis = varFis.__init__(self)
+                    estudio.add_var_fis(self, variable_fis)                 
             
             elif opcion == 3:
                 #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
-                Estudio.busc_estudios(self)
+                estudio.busc_estudios(self)
                 
             elif opcion == 4:
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese el nombre del estudio  ')
                 #Ejecuta la funcion buscar estudios de la clase Estudio con key como argumento
-                busqueda = Estudio.busc_estudios(self,key)
+                busqueda = estudio.busc_estudios(self,key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
                 
@@ -71,7 +78,7 @@ class Biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese el nombre del factor pronostico o variable fisiologica  ')
                 #Ejecuta la funcion buscar un estadistico de un estudio de la clase Var_Fis con key como argumento
-                busqueda = Var_Fis.busc_var_fis_estadisticos_unitario(self,key)
+                busqueda = varFis.busc_var_fis_estadisticos_unitario(self,key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                 
@@ -79,7 +86,7 @@ class Biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese el nombre del factor pronostico o variable fisiologica  ')
                 #Ejecuta la funcion buscar todos los estadistico de un estudio de la clase Var_Fis
-                busqueda = Var_Fis.busc_var_fis_estadisticos_todos(self,key)
+                busqueda = varFis.busc_var_fis_estadisticos_todos(self,key)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
             
@@ -87,58 +94,59 @@ class Biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese la palabra clave  ')               
                 #ejecuta el buscador por palabra d ela clase biblioteca
-                busqueda = Biblioteca.buscador(self)
+                busqueda = biblioteca.buscador(self)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
                 
             elif opcion == 8:
                 #Ejecuta la funcion buscar estudios de la clase estudios. Asigna el valor a estudio
                 input('Ingrese el nombre del estudio donde se encuentra la variable que desea graficar. Luego elija el estudio y la variable fisiologica  ')
-                estudio = Estudio.busc_estudios(self)
+                estudio = estudio.busc_estudios(self)
                 if estudio == None:
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
                 else:
                     #Ejecuta la funcion buscar variable fisiologica asociada a un estudio. Asigna el valor a Variable_Fis
-                    Variable_Fis = Var_Fis.busc_var_fis(self,estudio)
+                    Variable_Fis = varFis.busc_var_fis(self,estudio)
                     #Utiliza la funcion graficar de la clase Var_Fis. Toma como argumento la variable Variable_Fis 
-                    Var_Fis.graficar(self,Variable_Fis)     
+                    varFis.graficar(self,Variable_Fis)     
             
             
-class Estudio(object):
+class estudio(object):
     #Var_Fi (variables fisiologicas)=lista
-    def __init__(self,Name,Patologia,ID,Var_Fi=(None)):
-        self.name = Name
-        self.patologia = Patologia
-        self.id = ID
-        self.var_fi = Var_Fi
+    def __init__(self,name,iD,patologia,varFis=None):
+        self.name = name
+        self.id = iD
+        self.patology = patologia
+        self.var_fi = varFis
         print('...Estudio creado')
-
-        '''Ejecuta la funcion add de biblioteca. y guarda ekl objeto tipo estudio en el atributo self.estudio de biblioteca'''
-        Buscador.add_busc(self,Estudio)
-        
-        
-    #Agrega las variables fisiologicas al atributo self.var_fi   
-    def add_var_fis (self,Var_Fis):
-        self.var_fi.extend(Var_Fis)
+    
+    #Agrega las variables fisiologicas al atributo self.var_fi
+    
+    def add_var_fis (self,addVar):
+        self.var_fi.extend(addVar)
         print('... Variable agregada a estudio')    
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        pass
+        if key in self.name + self.patology + self.id: return True
+        else: return False
 
-class Var_Fis(object):
-        
-    def __init__(self,Name_VF,Registro,Estadisticos=(None),Val_Est):
-        self.name_vf = Name_VF
-        self.reg = Registro
-        
+    def __str__(self):
+        return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
+
+class varFis(object):
+    def __init__(self,name,datos=None):
+        self.name = name
+        self.datos = datos
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticos = Estadisticos
-        self.val_est = Val_Est
+        self.estadisticValues = 0
         print('...Variable creada')
-        
         #ejecuta la funcion add_var_fis de la clase Estudio
-        Estudio.add_var_fis(self, Var_Fis)
+        Estudio.add_var_fis(self, varFis)   
+        
+    def __contains__ (self,key):
+        if key in self.name: return True
+        else: return False
         
     #Funcion para calcular la media de las variables fisiologicas    
     def calc_media(var_fisica):
