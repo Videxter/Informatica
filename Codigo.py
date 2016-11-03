@@ -32,9 +32,12 @@ class biblioteca(object):
                 indice += 1
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
-        opind = str(input('Seleccione el numero del estudio  '))
-        print (resultados[opind])
-        if resultados == {}:
+        
+        if resultados != None:
+            opind = int(input('Seleccione el numero del estudio  '))
+        
+        
+        elif resultados == {}:
             print ("No existe ningun resultado asociado a la palabra clave")
             resultados = None   
         
@@ -61,6 +64,7 @@ class biblioteca(object):
                 opcion = int(input('Ingrese el número de la opción que desea...  '))
             except ValueError:
                 print('Ingrese un numero valido')
+                continue
             if opcion == 1:
                 #Ejecuta el inicializador de la clase Estudio
                 name = str(input('Ingrse nombre  ')) 
@@ -108,22 +112,21 @@ class biblioteca(object):
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                     continue
                 else:
-                    print ( study.buscadorvarfis())
+                    study.printVarfis(study.namesVarfi())
 
             elif opcion == 6:
                 #Recibe el valor que el usuario desea buscar
                 key = str(input('Ingrese la palabra clave del estudio  '))
                 #Ejecuta la funcion buscar todos los estadistico de un estudio de la clase Var_Fis
+                study = self.buscador(key) 
 
                 if study == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                     continue
                 
                 else:
-                    study = self.buscador(key) 
-                    study.showallvarfis()
+                    study.showAllVarfis()
 
-                    
             elif opcion == 7:
                 #Recibe el valor que el usuario desea buscar
                 key = str(input('Ingrese la palabra clave del estudio'))
@@ -132,8 +135,8 @@ class biblioteca(object):
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
                     continue
                 else:
-                    key2 = study.buscadorvarfis()                
-                    key2.graficar()
+                    objectVarFis = study.printVarfis(study.namesVarfi())
+                    objectVarFis.graficar()
                         
                     
 class estudio(object):
@@ -167,6 +170,13 @@ class estudio(object):
             listvf.append(i.name)
         return listvf
     
+    def printVarfis(self,lista):
+        for varfis in lista:
+            print (varfis)
+        indice = lista.index(str(input('Ingrese nombre de la variable')))
+        print (self.varfi[indice])
+        return self.varfi[indice]
+    '''         
     def buscadorvarfis (self,key):
         indice = 0
         resultados = {}
@@ -175,17 +185,18 @@ class estudio(object):
                 indice += 1
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
-        opcionvarfi = str(input('Seleccione el numero de la variable fisiologica  '))
+        opcionvarfi = int(input('Seleccione el numero de la variable fisiologica  '))
        
         if resultados == {}:
             print ("No existe ningun resultado asociado a la palabra clave")
             resultados = None   
         return resultados[opcionvarfi]
-        
+    '''
+            
     def showallvarfis(self):
         if not self.varfi == []:
             for i in self.varfi:
-                #ejecuta el str de estudio
+                #ejecuta el str de los objetos varFis
                 print (i)
 
 
