@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from _ast import Pass
+#from _ast import Pass
 #var_fis = variable fisiologica
 #clase contenedora de los objetos tipo estudio y var_fis
 
@@ -33,11 +33,12 @@ class biblioteca(object):
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
         
-        if resultados != None:
+        if resultados != {}:
             opind = int(input('Seleccione el numero del estudio  '))
         
         
         elif resultados == {}:
+            opind = None
             print ("No existe ningun resultado asociado a la palabra clave")
             resultados = None   
         
@@ -112,7 +113,7 @@ class biblioteca(object):
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                     continue
                 else:
-                    study.printVarfis(study.namesVarfi())
+                    study.selectVarfis(study.namesVarfi())
 
             elif opcion == 6:
                 #Recibe el valor que el usuario desea buscar
@@ -125,7 +126,7 @@ class biblioteca(object):
                     continue
                 
                 else:
-                    study.showAllVarfis()
+                    study.showVarfis()
 
             elif opcion == 7:
                 #Recibe el valor que el usuario desea buscar
@@ -135,7 +136,7 @@ class biblioteca(object):
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
                     continue
                 else:
-                    objectVarFis = study.printVarfis(study.namesVarfi())
+                    objectVarFis = study.selectVarfis(study.namesVarfi())
                     objectVarFis.graficar()
                         
                     
@@ -170,34 +171,18 @@ class estudio(object):
             listvf.append(i.name)
         return listvf
     
-    def printVarfis(self,lista):
+    def selectVarfis(self,lista):
         for varfis in lista:
             print (varfis)
         indice = lista.index(str(input('Ingrese nombre de la variable')))
         print (self.varfi[indice])
         return self.varfi[indice]
-    '''         
-    def buscadorvarfis (self,key):
-        indice = 0
-        resultados = {}
-        for objeto in self.varfi:
-            if key in objeto:
-                indice += 1
-                resultados[indice] = objeto
-                print (indice, ": ",resultados[indice])
-        opcionvarfi = int(input('Seleccione el numero de la variable fisiologica  '))
-       
-        if resultados == {}:
-            print ("No existe ningun resultado asociado a la palabra clave")
-            resultados = None   
-        return resultados[opcionvarfi]
-    '''
             
-    def showallvarfis(self):
+    def showVarfis(self):
         if not self.varfi == []:
-            for i in self.varfi:
+            for objetoVarfis in self.varfi:
                 #ejecuta el str de los objetos varFis
-                print (i)
+                print (objetoVarfis)
 
 
 class varFis(object):
