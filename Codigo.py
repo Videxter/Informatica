@@ -7,7 +7,7 @@ from _ast import Pass
 class biblioteca(object):
     
     #Inicializador clase buscador
-    def __init__(self,estudios=(None)):
+    def __init__(self,estudios=[]):
         #self.estudios atributo de clase buscasdor (Lista)
         self.estudios = estudios
 
@@ -22,9 +22,15 @@ class biblioteca(object):
     
     #Funcion para buscar en todos los elementos contenidos en self.estudios    
     def buscador (self,key):
-        if key in self.estudios:return True
-        else: return False
-     
+        indices = 0
+        resultados = {}
+        for objeto in self.estudios:
+            if key in self.estudios:
+                indices += 1
+                resultados[indices] = objeto
+                print (indice, ": " resultados[indice])
+            else: Print ("No existe ningun dato asociado a la palabra que busca")
+                
     def menuInicial(self,option):
         opcion = True
         while opcion!=0:
@@ -87,21 +93,21 @@ class biblioteca(object):
                 #Recibe el valor que el usuario desea buscar
                 key = input('Ingrese la palabra clave  ')               
                 #ejecuta el buscador por palabra d ela clase biblioteca
-                busqueda = Biblioteca.buscador(self)
+                busqueda = biblioteca.buscador(self)
                 if busqueda == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
                 
             elif opcion == 8:
                 #Ejecuta la funcion buscar estudios de la clase estudios. Asigna el valor a estudio
                 input('Ingrese el nombre del estudio donde se encuentra la variable que desea graficar. Luego elija el estudio y la variable fisiologica  ')
-                estudio = Estudio.busc_estudios(self)
+                estudio = estudio.busc_estudios(self)
                 if estudio == None:
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
                 else:
                     #Ejecuta la funcion buscar variable fisiologica asociada a un estudio. Asigna el valor a Variable_Fis
-                    Variable_Fis = Var_Fis.busc_var_fis(self,estudio)
+                    Variable_Fis = VarFis.busc_var_fis(self,estudio)
                     #Utiliza la funcion graficar de la clase Var_Fis. Toma como argumento la variable Variable_Fis 
-                    Var_Fis.graficar(self,Variable_Fis)     
+                    varFis.graficar(self,Variable_Fis)     
             
             
 class estudio(object):
