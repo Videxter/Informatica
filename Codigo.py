@@ -16,8 +16,8 @@ class biblioteca(object):
     '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
     Si quiere cambiele el nombre para que quede mas intuitivo '''
 
-    def addLib (self,estudio):
-        self.estudios.extend(estudio)
+    def addLib (self,object_estudio):
+        self.estudios.append(object_estudio)
         print('...Estudio agregado a base de datos ')
     
     #Funcion para buscar en todos los elementos contenidos en self.estudios     
@@ -25,13 +25,14 @@ class biblioteca(object):
         indice = 0
         resultados = {}
         for objeto in self.estudios:
-            if key in self.estudios:
+            if key in objeto or key in objeto.varfi:
                 indice += 1
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
         
         if resultados == {}:
-            print ("No existe ningun resultado asociado al a palabra clave")   
+            print ("No existe ningun resultado asociado a la palabra clave")
+            resultados = None   
         return resultados
     
     def showLibrary(self):
@@ -154,7 +155,7 @@ class estudio(object):
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        if key in self.name + self.patology + self.id: return True
+        if (key in self.name + self.patology + self.id) or (key in self.varfi): return True
         else: return False
     
     # sobrecarga de str #### 
