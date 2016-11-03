@@ -156,59 +156,58 @@ class estudio(object):
         return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
 
 class varFis(object):
-    def __init__(self,name,datos):
+    def __init__(self,name,datos, dic = {} ):
         self.name = name
-        self.datos = datos
+        self.datos = np.loadtxt(datos)
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
-        self.estadisticValues = {}
+        self.estadisticValues = dic
         print('...Variable creada')
-    ##### funciona
+    
     def __contains__ (self,key):
         if key in self.name: return True
         else: return False
-    
-    ##### falta probar y poner el return
+        
     def importar (self,fileName):
         datos = open(fileName)
-    
-    #### probar
+        
     def __str__(self):
-        estadistics = self.getEstadistics(self.datos)
-        return 'Variable Fisiologica:%s\n| Media: %s |\n| Mediana: %s |\n| Valor Maximo: %s |\n| Valor Minimo: %s|\n'
-        %(self.name,estadistics['Media'],estadistics['Mediana'],estadistics['Valor maximo'],estadistics['Valor minimo'])
+        self.getEstadistics()
+        return 'Variable Fisiologica:%s\n| Media: %f |\n| Mediana: %f |\n| Valor Maximo: %f |\n| Valor Minimo: %f|\n'%(self.name,float(self.estadisticValues['Media']),float(self.estadisticValues['Mediana']),float(self.estadisticValues['Valor maximo']),float(self.estadisticValues['Valor minimo']))
     
-    
-    #### PROBAR
     #Funcion para calcular la media de las variables fisiologicas    
-    def getEstadistics(self,var_fisica):
-        vector_var_fisica = np.array(var_fisica, dtype=np.float) 
+    def getEstadistics(self):
+        
+        matriz_float = self.datos.astype(np.float)
+
         estadisticas = {}
-        estadisticas ['Media']=        np.average(vector_var_fisica)
-        estadisticas ['Mediana']=      np.median(vector_var_fisica)
-        estadisticas ['Valor maximo']= np.argmax(vector_var_fisica)
-        estadisticas ['Valor minimo']= np.argmin(vector_var_fisica)
+        estadisticas ['Media']=        np.average(matriz_float)
+        estadisticas ['Mediana']=      np.median(matriz_float)
+        estadisticas ['Valor maximo']= np.argmax(matriz_float)
+        estadisticas ['Valor minimo']= np.argmin(matriz_float)
+        self.estadisticValues = estadisticas
         return estadisticas
 
     # Funcion para graficar. Falta decidir el lugar donde debe ir
-    def graficar(self,var_fisica,):
+    def graficar(self):
 
-        #En este bloque obtengo las dos matrices para graficar 
-        #(vector_var_fisica   y   segundos_graficar
-        vector_var_fisica = np.array(var_fisica, dtype=np.float)
-        tamaño = vector_var_fisica.shape
+        
+        matriz_float = self.datos.astype(np.float)
+        tamaño = matriz_float.shape
         segundos = tamaño[0]/100
-        segundos_graficar = np.zeros((1,tamaño[0]))
+        segundos_graficar = np.array(range(tamaño[0]))
         frecuencia = float(segundos/tamaño[0])
         contador = 0
-        for i in range(0,tamaño[0]):
-            segundos_graficar[i] = contador
+
+        for i in np.array(range(tamaño[0])):
+            segundos_graficar[i] = contador           
             contador = contador + frecuencia
+        
 
         #En este bloque se ejecutan los comandos para graficar
         plt.title('Comportamiento de variable fisiologica en el tiempo')
         plt.xlabel('Tiempo  [=]Segundos')
         plt.ylabel('Variable fisiologica')
-        plt.plot(segundos_graficar,vector_var_fisica)
+        plt.plot(segundos_graficar,matriz_float)
         plt.show()
 
 '''
