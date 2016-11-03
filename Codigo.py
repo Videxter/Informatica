@@ -20,15 +20,15 @@ class biblioteca(object):
         self.estudios.extend(estudio)
         print('...Estudio agregado a base de datos ')
     
-    #Funcion para buscar en todos los elementos contenidos en self.estudios    
+    #Funcion para buscar en todos los elementos contenidos en self.estudios     
     def buscador (self,key):
-        indices = 0
+        indice = 0
         resultados = {}
         for objeto in self.estudios:
             if key in self.estudios:
-                indices += 1
-                resultados[indices] = objeto
-                print (indice, ": " resultados[indice])
+                indice += 1
+                resultados[indice] = objeto
+                print (indice, ": ",resultados[indice])
             else: print ("No existe ningun dato asociado a la palabra que busca")
         return resultados
                 
