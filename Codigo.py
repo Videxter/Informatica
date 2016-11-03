@@ -1,3 +1,7 @@
+#TAREA 2: PRONOSTICO DE ENFERMEDADES
+# Daniel Góez Molina         CC 1.037.621.550
+# Andres Julian Viana Uribe  CC 1.214.734.333
+
 import numpy as np
 import matplotlib.pyplot as plt
 #from _ast import Pass
@@ -5,51 +9,47 @@ import matplotlib.pyplot as plt
 #clase contenedora de los objetos tipo estudio y var_fis
 
 class biblioteca(object):
-    
-    #Inicializador clase buscador
     def __init__(self,estudios=[]):
-        #self.estudios atributo de clase buscasdor (Lista)
         self.estudios = estudios
 
     #Agrega los objetos tipo estudio al atributo self.estudios 
-    """por que aqui?"""
-    '''Este es el metodo que agrega los objetos tipo estudio al atributo self.estudio(este es una lista).   
-    Si quiere cambiele el nombre para que quede mas intuitivo '''
-
     def addLib (self,object_estudio):
         self.estudios.append(object_estudio)
         print('...Estudio agregado a base de datos ')
     
-    def showVarfis(self):
-        pass    
-    
-    #Funcion para buscar en todos los elementos contenidos en self.estudios     
+    # Funcion para buscar en todos los elementos contenidos en self.estudios     
     def buscador (self,key):
+        # Inicializa indice para diccionario
         indice = 0
         resultados = {}
+        # Itera sobre la lista self.estudios 
         for objeto in self.estudios:
+            # Busca la clave en los objetos estudio y varFis por medio del metodo contains de ambas 
             if key in objeto or key in objeto.varfi:
+                # Incremento del indice para nueva posicion de diccionario
                 indice += 1
+                # asigna objetos estudio el dic 
                 resultados[indice] = objeto
                 print (indice, ": ",resultados[indice])
-        
+        # Si el diccionario no es vacio pide el ingreso de una opcion de los resultados  
         if resultados != {}:
             opind = int(input('Seleccione el numero del estudio  '))
-        
-        
+        # Si resultados es vacio imprime alerta 
         elif resultados == {}:
             opind = None
             print ("No existe ningun resultado asociado a la palabra clave")
             resultados = None   
-        
+        # retorna diccionario con los resultados
         return resultados[opind]
     
+    # Muestra todos los elementos existentes en la biblioteca
     def showLibrary(self):
         if not self.estudios == []:
             for i in self.estudios:
                 #ejecuta el str de estudio
                 print (i)
-                
+    
+    # Funcion de administracion de la biblioteca            
     def menuInicial(self):
         opcion = True
         while opcion!=0:
@@ -61,87 +61,102 @@ class biblioteca(object):
             print ('6. Consultar Estadisticos de todos los factores pronostico')
             print ('7. Graficar una variable fisiologica asociada a un estudio')          
             print ("0. Salir")
+            #Validacion de ingreso de opcion 
             try:    
                 opcion = int(input('Ingrese el número de la opción que desea...  '))
             except ValueError:
                 print('Ingrese un numero valido')
                 continue
             if opcion == 1:
-                #Ejecuta el inicializador de la clase Estudio
-                name = str(input('Ingrse nombre  ')) 
-                ide = str(input('Ingrse Identificación  '))
-                pat = str(input('Ingrse patlogia  '))
+                #Pide los datos necesarios para crear un objeto estudios
+                name = str(input('Ingrese nombre  ')) 
+                ide = str(input('Ingrese Identificación  '))
+                pat = str(input('Ingrese patlogia  '))
+                #Ejecuta el metodo inicializador de estudios
                 self.addLib (estudio(name, ide, pat))
                 
             elif opcion == 2:
-                key = str(input('Ingrese el nombre del estudio al que desea asociarle la viariable fisiologica'))
+                #Recive la palabra clave para buscar el estudio en la clase biblioteca
+                key = str(input('Ingrese la palabra clave para la busqueda del estudio al que desea asociarle la viariable fisiologica'))
+                #Ejecuta el metodo buscador de biblioteca
                 study = self.buscador(key)
+                #Valida la existencia de objetos tipo estudio
                 if study == None:
                     print ('Ingrese un estudio existente. (Debe crear un estudio antes de asignarle un diagnostico)')
                     continue
                 else: 
                     while True:                        
+                        #Validacion e importacion del archivo
                         try:
                             file = open(str(input('Ingrese el nombre del archivo seguido de .txt  ')))
                             break
                         except IOError:
                             print ('No es posible abrir el archivo.\nVerifique el nombre ingresado.\nEl algoritmo distingue entre mayusculas')
                             continue
+                    #Recive el nombre para asignar a la variable fisiologica
                     variableFis = str(input('Ingrese el nombre de la variable fisiologica: ')) 
+                    #Ejecuta el inicializador de la clase varFis
                     objectVarFis = varFis(variableFis, file)
+                    #Agrega el objeto tipo varFis al atributo varfi de estudios
                     study.addVarFis(objectVarFis)                 
             
             elif opcion == 3:
-                #Ejecuta la funcion buscar estudios de la clase Estudio e imprime todos los objetos tipo estudio
+                #Ejecuta la funcion buscar estudios de la clase biblioteca e imprime todos los objetos tipo estudio
                 self.showLibrary()                
             
             elif opcion == 4:
-                #Recibe el valor que el usuario desea buscar
+                #Recibe la palabra clave que el usuario desea buscar
                 key = str(input('Ingrese el nombre del estudio  '))
-                #Ejecuta la funcion buscar estudios de la clase Estudio con key como argumento
+                #Ejecuta la funcion buscar estudios de la clase biblioteca con key como argumento
                 study = self.buscador(key)
                 if study == None:
                     print('Debe crear por lo menos un estudio antes de poder buscar')
                     continue
                 
             elif opcion == 5:
-                #Recibe el valor que el usuario desea buscar
+                #Recibe la palabra clave que el usuario desea buscar
                 key = str(input('Ingrese la palabra clave del estudio'))
+                #Ejecuta el buscador de la clase biblioteca
                 study = self.buscador(key)
-
+                #Valida la existencia de objetos tipo estudios
                 if study == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                     continue
                 else:
+                    #Imprime la variable seleccionada
                     study.selectVarfis(study.namesVarfi())
 
             elif opcion == 6:
-                #Recibe el valor que el usuario desea buscar
+                #Recibe la palabra clave que el usuario desea buscar
                 key = str(input('Ingrese la palabra clave del estudio  '))
-                #Ejecuta la funcion buscar todos los estadistico de un estudio de la clase Var_Fis
+                #Ejecuta la funcion buscar todos los estadistico de un estudio de la clase biblioteca
                 study = self.buscador(key) 
-
+                #Valida la existencia de objetos tipo estudios 
                 if study == None:
                     print('Debe crear por lo menos un estudio y asignarle una variable fisiologica antes de poder buscar')
                     continue
                 
                 else:
+                    #Muestra todas las variables fisiologicas asociadas al estudio seleccionado
                     study.showVarfis()
 
             elif opcion == 7:
-                #Recibe el valor que el usuario desea buscar
+                #Recibe la palabra clave que el usuario desea buscar
                 key = str(input('Ingrese la palabra clave del estudio'))
+                #Ejecuta el buscador de la clase biblioteca
                 study = self.buscador(key)
+                #Valida la existencia de objetos tipo estudios
                 if study == None:
                     print('Ingrese un estudio existente. (Debe crear un estudio y asignarle una variable fisiologica para graficar)' )
                     continue
                 else:
+                    #Obtiene el objeto tipo varFis
                     objectVarFis = study.selectVarfis(study.namesVarfi())
+                    #Grafica el objeto tipo varFis
                     objectVarFis.graficar()
                         
                     
 class estudio(object):
-    #Var_Fi (variables fisiologicas)=lista
     def __init__(self,name,iD,patologia,varFi=[]):
         self.name = name
         self.id = iD
@@ -149,36 +164,44 @@ class estudio(object):
         self.varfi = varFi
         print('...Estudio creado')
     
-    #Agrega las variables fisiologicas al atributo self.var_fi
-    ##### PROBAR (DEBERIA VAR SER UN DICCIONARIO?)
+    # Agrega las variables fisiologicas al atributo self.var_fi
     def addVarFis (self, object_variable_fisiologica):
         self.varfi.append(object_variable_fisiologica)
         print('... Variable agregada a estudio')
         return self.varfi
     
-    # sobrecarga del metodo contains para usar en el buscador
+    # Redefine del metodo contains para usar en el buscador
     def __contains__ (self,key):
         if (key in self.name + self.patology + self.id) or (key in self.varfi): return True
         else: return False
     
-    # sobrecarga de str #### 
+    # Redefine str 
     def __str__(self):
         return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.namesVarfi())
 
+    # Retorna una lista con nombres de las variables fisiologicas
     def namesVarfi(self):
         listvf = []
+        # agrega a lista auxiliar los nombres del del atributo .name de objetos varFis
         for i in self.varfi:
             listvf.append(i.name)
         return listvf
     
+    # Seleccion objetos tipo varFis del atributo self.varfi  
     def selectVarfis(self,lista):
+        # Imprime nombres de la variables fisiologicas 
         for varfis in lista:
             print (varfis)
+        # Almacena el indice de la variable seleccionado    
         indice = lista.index(str(input('Ingrese nombre de la variable')))
+        # Imprime la variable seleccionada
         print (self.varfi[indice])
         return self.varfi[indice]
-            
+    
+    
+    # imprime todas la variales Fisiologicas con el metodo str de los objetos varFis        
     def showVarfis(self):
+        # Si la lista no es vacia imprime todas las Variables fisiologicas
         if not self.varfi == []:
             for objetoVarfis in self.varfi:
                 #ejecuta el str de los objetos varFis
@@ -189,48 +212,59 @@ class varFis(object):
     def __init__(self,name, datos, dic = {} ):
         self.name = name
         self.datos = np.loadtxt(datos)
-        #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
         self.estadisticValues = dic
         print('...Variable creada')
     
+    # redefinicion del metodo contains
     def __contains__ (self,key):
+        # Solo busca en el atributo name
         if key in self.name: return True
         else: return False
         
+    # redefinicion del metodo print y str 
     def __str__(self):
+        # Usa la funcion getEstadistics para asignarle datos al atributo estadisticValues  
         self.getEstadistics()
+        # formato de respresentacion string
         return 'Variable Fisiologica:%s\n| Media: %f |\n| Mediana: %f |\n| Valor Maximo: %f |\n| Valor Minimo: %f|\n'%(self.name,float(self.estadisticValues['Media']),float(self.estadisticValues['Mediana']),float(self.estadisticValues['Valor maximo']),float(self.estadisticValues['Valor minimo']))
     
-    #Funcion para calcular la media de las variables fisiologicas    
+    # Funcion para calcular valores estadisticos de la variables fisiologicas 
     def getEstadistics(self):
-        
+        # Convierte el arreglo de numpy loadtxt a un arreglo numpy float
         matriz_float = self.datos.astype(np.float)
-
+        
         estadisticas = {}
+        # calcula los valores correspondientes a los datos estadisticos 
+        # y los asiga en un diccionario con la clave del valor estadistico
         estadisticas ['Media']=        np.average(matriz_float)
         estadisticas ['Mediana']=      np.median(matriz_float)
         estadisticas ['Valor maximo']= np.argmax(matriz_float)
         estadisticas ['Valor minimo']= np.argmin(matriz_float)
+        # asigna al atributo estadisticValues los datos calculados
         self.estadisticValues = estadisticas
+        # retorna diccionario con datos estadisticos
         return estadisticas
 
-    # Funcion para graficar. Falta decidir el lugar donde debe ir
+    # Funcion para graficar
     def graficar(self):
-
-        
+        # Convierte el arreglo de numpy loadtxt a un arreglo numpy float
         matriz_float = self.datos.astype(np.float)
+        # Calcula el tamaño de la matriz
         tamaño = matriz_float.shape
+        # Calcula la cantidad de datos del eje segundos
         segundos = tamaño[0]/100
+        # Crea arreglo de numpy con la dimensiones de la variable tamaño
         segundos_graficar = np.array(range(tamaño[0]))
+        # Calcula en la que se grafica en el eje x
         frecuencia = float(segundos/tamaño[0])
         contador = 0
-
+        # Asigna a segundos_graficar las divisiones numericas correspondientes al eje x 
         for i in np.array(range(tamaño[0])):
             segundos_graficar[i] = contador           
-            contador = contador + frecuencia
+            contador += frecuencia
         
-
-        #En este bloque se ejecutan los comandos para graficar
+        # En este bloque se ejecutan los comandos para graficar
+        # con metodos la biblioteca mat
         plt.title('Comportamiento de variable fisiologica en el tiempo')
         plt.xlabel('Tiempo  [=]Segundos')
         plt.ylabel('Variable fisiologica')
@@ -239,19 +273,3 @@ class varFis(object):
 
 objeto = biblioteca()
 objeto.menuInicial()
-        
-'''
-PENDIENTES:
--Relacionar las ultimas funciones con las clases.( creo que ya)
--probar menu para la ejecucion de todo el algoritmo (en curso)
--probar buscador (en curso)
--realizar diagrama de clases (en curso)
--probar clase varFis 
-
-Hechos:
-- constructor, contain, str de estudios funciona
-- crear funcion para importar las variables fisiologicas.
-- menu creado
-- buscador creado
-- metodos de funciones creadas
-'''
