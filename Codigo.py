@@ -142,16 +142,15 @@ class estudio(object):
         self.name = name
         self.id = iD
         self.patology = patologia
-        self.var_fi = []
+        self.varfi = varFi
         print('...Estudio creado')
     
     #Agrega las variables fisiologicas al atributo self.var_fi
     ##### PROBAR (DEBERIA VAR SER UN DICCIONARIO?)
-    def addVarFis (self,name,datos):
-        var = varFis (name,datos)
-        self.var_fi.append(var)
+    def addVarFis (self, object_variable_fisiologica):
+        self.varfi.append(object_variable_fisiologica)
         print('... Variable agregada a estudio')
-        return self.var_fi
+        return self.varfi
     
     # sobrecarga del metodo contains para usar en el buscador
     def __contains__ (self,key):
@@ -160,10 +159,17 @@ class estudio(object):
     
     # sobrecarga de str #### 
     def __str__(self):
-        return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.var_fi)
+        return '| Nombre: %s | ID: %s | Patologia: %s | Factores pronosticos: %s|'%(self.name.capitalize(), self.id, self.patology.capitalize(), self.printVarfi())
+
+    def printVarfi(self):
+        listvf = []
+        for i in self.varfi:
+            listvf.append(i.name)
+        return listvf
+
 
 class varFis(object):
-    def __init__(self,name,datos, dic = {} ):
+    def __init__(self,name, datos, dic = {} ):
         self.name = name
         self.datos = np.loadtxt(datos)
         #Estadisticos(lista)=contiene los datos estadisticos de la siguiente forma:  Posicion 0: Media. Posicion 1: mediana.Posicion 2: Val max. posicion 3: Val min
