@@ -76,7 +76,7 @@ class biblioteca(object):
                 self.addLib (estudio(name, ide, pat))
                 
             elif opcion == 2:
-                #Recive la palabra clave para buscar el estudio en la clase biblioteca
+                #Recibe la palabra clave para buscar el estudio en la clase biblioteca
                 key = str(input('Ingrese la palabra clave para la busqueda del estudio al que desea asociarle la viariable fisiologica'))
                 #Ejecuta el metodo buscador de biblioteca
                 study = self.buscador(key)
