@@ -262,25 +262,48 @@ class varFis(object):
         matriz_float = self.datos.astype(np.float)
         # Calcula el tamaño de la matriz
         tamaño = matriz_float.shape
-        # Calcula la cantidad de datos del eje segundos
+        print(tamaño)
+        # Calcula la cantidad de datos del eje segundos (eje y)
         segundos = tamaño[0]/100
-        # Crea arreglo de numpy con la dimensiones de la variable tamaño
-        segundos_graficar = np.array(range(tamaño[0]))
-        # Calcula en la que se grafica en el eje x
+        # Calcula el paso de los datos para graficar en el eje x
         frecuencia = float(segundos/tamaño[0])
-        contador = 0
         # Asigna a segundos_graficar las divisiones numericas correspondientes al eje x 
-        for i in np.array(range(tamaño[0])):
-            segundos_graficar[i] = contador           
-            contador += frecuencia
-        
+        segundos_graficar = np.arange(0.0,float(segundos),frecuencia)
+
         # En este bloque se ejecutan los comandos para graficar
-        # con metodos la biblioteca mat
         plt.title('Comportamiento de variable fisiologica en el tiempo')
         plt.xlabel('Tiempo  [=]Segundos')
         plt.ylabel('Variable fisiologica')
         plt.plot(segundos_graficar,matriz_float)
         plt.show()
 
+
+#Creacion de objeto biblioteca
 objeto = biblioteca()
+#Ingreso del primer estudio
+name = 'Carlos' 
+ide = '1234346457'
+pat = 'Cardiopatia'
+estudy = estudio(name,ide,pat)
+objeto.addLib(estudy)
+                
+file = open('eeg2.txt')
+variableFis = 'ELCardiograma' 
+objectVarFis = varFis(variableFis, file)
+estudy.addVarFis(objectVarFis)                 
+
+#Ingreso del segundo estudio 
+name = 'Andres' 
+ide = '98309452'
+pat = 'Huesos'
+estudy = estudio(name,ide,pat)
+objeto.addLib(estudy)
+
+file = open('emg1.txt')
+variableFis = 'Radiologia' 
+objectVarFis = varFis(variableFis, file)
+estudy.addVarFis(objectVarFis)                 
+
+#Ejecuta el metodo menu de biblioteca
 objeto.menuInicial()
+
