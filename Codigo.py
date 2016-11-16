@@ -173,8 +173,12 @@ class estudio(object):
     
     # Redefine del metodo contains para usar en el buscador
     def __contains__ (self,key):
-        if (key in self.name + self.patology + self.id) or (key in self.varfi): return True
-        else: return False
+        if (key in self.name + self.patology + self.id): exist = True
+        else: exist = False
+        for var in self.varfi:
+            if key in var: exist = exist or True
+            else: exist = exist or False
+        return exist
     
     # Redefine str 
     def __str__(self):
