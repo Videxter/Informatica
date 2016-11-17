@@ -262,7 +262,6 @@ class varFis(object):
         matriz_float = self.datos.astype(np.float)
         # Calcula el tamaño de la matriz
         tamaño = matriz_float.shape
-        print(tamaño)
         # Calcula la cantidad de datos del eje segundos (eje y)
         segundos = tamaño[0]/100
         # Calcula el paso de los datos para graficar en el eje x
@@ -278,13 +277,32 @@ class varFis(object):
         plt.show()
 
 
+#Creacion de objeto biblioteca
 objeto = biblioteca()
+#Ingreso del primer estudio
+name = 'Carlos' 
+ide = '1234346457'
+pat = 'Cardiopatia'
+estudy = estudio(name,ide,pat)
+objeto.addLib(estudy)
+                
+file = open('eeg2.txt')
+variableFis = 'ECC' 
+objectVarFis = varFis(variableFis, file)
+estudy.addVarFis(objectVarFis)                 
 
-objeto.addLib(estudio("Andres", "1214734333", "Tinnitus"))  
-objeto.addLib(estudio("Daniel", "1037621550", "Rodilla de Monja"))
+#Ingreso del segundo estudio 
+name = 'Andres' 
+ide = '98309452'
+pat = 'Huesos'
+estudy = estudio(name,ide,pat)
+objeto.addLib(estudy)
 
-objeto.estudios[0].addVarFis(varFis('EEG', open("eeg3.txt")))
-objeto.estudios[1].addVarFis(varFis('EE3', open("eeg1.txt"))) 
+file = open('emg1.txt')
+variableFis = 'EKG' 
+objectVarFis = varFis(variableFis, file)
+estudy.addVarFis(objectVarFis)                 
 
+#Ejecuta el metodo menu de biblioteca
 objeto.menuInicial()
 
