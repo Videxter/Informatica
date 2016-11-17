@@ -278,32 +278,13 @@ class varFis(object):
         plt.show()
 
 
-#Creacion de objeto biblioteca
 objeto = biblioteca()
-#Ingreso del primer estudio
-name = 'Carlos' 
-ide = '1234346457'
-pat = 'Cardiopatia'
-estudy = estudio(name,ide,pat)
-objeto.addLib(estudy)
-                
-file = open('eeg2.txt')
-variableFis = 'ELCardiograma' 
-objectVarFis = varFis(variableFis, file)
-estudy.addVarFis(objectVarFis)                 
 
-#Ingreso del segundo estudio 
-name = 'Andres' 
-ide = '98309452'
-pat = 'Huesos'
-estudy = estudio(name,ide,pat)
-objeto.addLib(estudy)
+objeto.addLib(estudio("Andres", "1214734333", "Tinnitus"))  
+objeto.addLib(estudio("Daniel", "1037621550", "Rodilla de Monja"))
 
-file = open('emg1.txt')
-variableFis = 'Radiologia' 
-objectVarFis = varFis(variableFis, file)
-estudy.addVarFis(objectVarFis)                 
+objeto.estudios[0].addVarFis(varFis('EEG', open("eeg3.txt")))
+objeto.estudios[1].addVarFis(varFis('EE3', open("eeg1.txt"))) 
 
-#Ejecuta el metodo menu de biblioteca
 objeto.menuInicial()
 
