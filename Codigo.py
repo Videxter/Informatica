@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 #clase contenedora de los objetos tipo estudio y var_fis
 
 class biblioteca(object):
-    def __init__(self,estudios=[]):
-        self.estudios = estudios
+    def __init__(self):
+        self.estudios = []
 
     #Agrega los objetos tipo estudio al atributo self.estudios 
     def addLib (self,object_estudio):
@@ -158,17 +158,17 @@ class biblioteca(object):
                         
                     
 class estudio(object):
-    def __init__(self,name,iD,patologia,varFi=[]):
+    def __init__(self,name,iD,patologia):
         self.name = name
         self.id = iD
         self.patology = patologia
-        self.varfi = varFi
+        self.varfi = []
         print('...Estudio creado')
     
     # Agrega las variables fisiologicas al atributo self.var_fi
     def addVarFis (self, object_variable_fisiologica):
         self.varfi.append(object_variable_fisiologica)
-        print('... Variable agregada a estudio')
+        print('...Variable agregada a estudio')
         return self.varfi
     
     # Redefine del metodo contains para usar en el buscador
@@ -276,33 +276,15 @@ class varFis(object):
         plt.plot(segundos_graficar,matriz_float)
         plt.show()
 
-
-#Creacion de objeto biblioteca
+        
 objeto = biblioteca()
-#Ingreso del primer estudio
-name = 'Carlos' 
-ide = '1234346457'
-pat = 'Cardiopatia'
-estudy = estudio(name,ide,pat)
-objeto.addLib(estudy)
-                
-file = open('eeg2.txt')
-variableFis = 'ECC' 
-objectVarFis = varFis(variableFis, file)
-estudy.addVarFis(objectVarFis)                 
 
-#Ingreso del segundo estudio 
-name = 'Andres' 
-ide = '98309452'
-pat = 'Huesos'
-estudy = estudio(name,ide,pat)
-objeto.addLib(estudy)
+objeto.addLib(estudio("Andres", "1214734333", "Tinnitus"))  
+objeto.addLib(estudio("Daniel", "1037621550", "Rodilla de Monja"))
 
-file = open('emg1.txt')
-variableFis = 'EKG' 
-objectVarFis = varFis(variableFis, file)
-estudy.addVarFis(objectVarFis)                 
+objeto.estudios[0].addVarFis(varFis('EEG', open("eeg3.txt")))
+objeto.estudios[1].addVarFis(varFis('EE3', open("eeg1.txt"))) 
 
-#Ejecuta el metodo menu de biblioteca
 objeto.menuInicial()
+
 
