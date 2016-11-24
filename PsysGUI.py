@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QPushButton,
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 #from PyQt5.Qt import 
-from Tarea2_Grupo3 import biblioteca, estudio, varFis
+from psysClass import biblioteca, estudio, varFis
 
 
 class App(QMainWindow):
